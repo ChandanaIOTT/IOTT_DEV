@@ -87,15 +87,15 @@ namespace IOTT_API.Controllers
                         var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                         var json = serializer.Serialize(data);
                         Byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(json);
-                        string SERVER_API_KEY = "AAAARWxwvTk:APA91bFz9sWZric8qRXxP62PxVQbA04fQIEuLcFGRzSqq6SUUT0YOCRyywLw6Z4eC0DvCNZRPtXW786VGiNFS58TcDsha6moKgGIxRXjPMWbUN-i8LCyB4a2mFXGS-WvihqR88UmiEYm";
-                        string SENDER_ID = "298172071225";
+                        //string SERVER_API_KEY = "AAAARWxwvTk:APA91bFz9sWZric8qRXxP62PxVQbA04fQIEuLcFGRzSqq6SUUT0YOCRyywLw6Z4eC0DvCNZRPtXW786VGiNFS58TcDsha6moKgGIxRXjPMWbUN-i8LCyB4a2mFXGS-WvihqR88UmiEYm";
+                        string SENDER_ID = "976232761762";
 
                         WebRequest tRequest;
                         tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
 
                         tRequest.Method = "post";
                         tRequest.ContentType = "application/json";
-                        tRequest.Headers.Add(string.Format("Authorization: key={0}", SERVER_API_KEY));
+                       // tRequest.Headers.Add(string.Format("Authorization: key={0}", SERVER_API_KEY));
 
 
                         tRequest.Headers.Add(string.Format("Sender: id={0}", SENDER_ID));

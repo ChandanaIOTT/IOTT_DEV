@@ -20,7 +20,7 @@ namespace I_OTT_API.Models
         public string DeviceName { get; set; }
         public string ActiveDeviceQuantity { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{dddd, dd-MM-yyyy HH:mm:ss}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{dd/MM/yyyy HH:mm:ss}")]
         public DateTime SubDateTime { get; set; }
         public string ProfileImg { get; set; }
         public string OTP { get; set; }

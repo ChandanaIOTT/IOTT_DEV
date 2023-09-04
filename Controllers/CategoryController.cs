@@ -46,7 +46,7 @@ namespace IOTT_API.Controllers
                         var m = new Message();
                         m.message = " Genre uploaded succesfully";
                         message.Add(m);
-                        result = ControllerContext.Request.CreateResponse(HttpStatusCode.OK, message);
+                        result = ControllerContext.Request.CreateResponse(HttpStatusCode.OK, message);          
                     }
 
                 }

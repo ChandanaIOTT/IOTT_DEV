@@ -25,7 +25,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-
 using System.Net.Mail;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -62,7 +61,7 @@ namespace IOTT_API.Controllers
     {
         string CS = ConfigurationManager.ConnectionStrings["IOTT_DEVELOPMENT"].ConnectionString;
         List<Message> message = new List<Message>();
-        private static string ApiKey = "AIzaSyCpv8ZmCM_tfDNEhrohlvV0ktxbEwzGNYM";
+        private static string ApiKey = "AIzaSyDFa0Gr-1DVIMyjxUqOx1fJj6kpQ21lthI";
 
 
         // GET: User
@@ -88,7 +87,16 @@ namespace IOTT_API.Controllers
                     user.Name = rdr["Name"].ToString();
                     user.Email = rdr["Email"].ToString();
                     user.Location = rdr["Location"].ToString();
-                    user.SubDateTime = Convert.ToDateTime(rdr["SubDateTime"]);
+                    if (!Convert.IsDBNull(rdr["SubDateTime"]))
+                    {
+                        user.SubDateTime = Convert.ToDateTime(rdr["SubDateTime"]);
+
+                    }
+                    else
+                    {
+                        user.SubDateTime = DateTime.MinValue;
+
+                    }
                     userlist.Add(user);
 
                 }
@@ -123,7 +131,7 @@ namespace IOTT_API.Controllers
                     int min = 1000;
                     int max = 9999;
 
-                    string datetime = DateTime.Now.ToString("dddd, dd-MM-yyyy HH:mm:ss");
+                    string datetime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                     DateTime sdt = Convert.ToDateTime(datetime);
 
                     Random rdm = new Random();
@@ -276,6 +284,8 @@ namespace IOTT_API.Controllers
             }
             catch (Exception ex)
             {
+                m.message = ex.Message;
+                message.Add(m);
                 result = ControllerContext.Request.CreateResponse(HttpStatusCode.BadRequest, message);
             }
             return result;
@@ -417,9 +427,17 @@ namespace IOTT_API.Controllers
 
             catch (Exception ex)
             {
-                m.message = ex.Message;
-                message.Add(m);
-                result = ControllerContext.Request.CreateResponse(HttpStatusCode.BadRequest, message);
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    /*con.Open();
+                    SqlCommand cmd = new SqlCommand("SPAddError", con);
+                    cmd.CommandType = CommandType.StoredProcedure;*/
+
+                    m.message = ex.Message;
+                    message.Add(m);
+                    result = ControllerContext.Request.CreateResponse(HttpStatusCode.BadRequest, message);
+                }
+
             }
             return result;
         }
